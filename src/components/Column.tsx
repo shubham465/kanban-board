@@ -17,7 +17,7 @@ const Column: React.FC<{
   removeColumn: (columnId: string) => void;
   titleRef?: React.RefObject<HTMLDivElement>;
 }> = ({ column, updateColumn, removeColumn, titleRef }) => {
-  const [title] = useState(column.title);
+  const [title, setTitle] = useState(column.title);
   const newTaskTitleRef = useRef<HTMLDivElement | null>(null);
   const [isNewTaskAdded, setIsNewTaskAdded] = useState(false);
 
@@ -79,10 +79,11 @@ const Column: React.FC<{
               ...column,
               title: e.currentTarget.textContent ?? "",
             });
+            setTitle(e.currentTarget.textContent ?? "");
           }}
           suppressContentEditableWarning={true}
           ref={titleRef}
-          title={title} // Add title attribute for tooltip
+          title={title}
         >
           {title}
         </div>

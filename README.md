@@ -4,6 +4,10 @@ This is a simple Kanban Board application built with React and TypeScript. It al
 
 ![Kanban Board](image.png)
 
+## Live Project Link
+
+https://kanban-board-2000.vercel.app
+
 ## Features
 
 - Add, update, and remove columns

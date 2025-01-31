@@ -1,22 +1,23 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+  useContext,
+} from "react";
 import { Droppable, Draggable } from "@hello-pangea/dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-import Task, { TaskType } from "./Task";
-
-export interface ColumnType {
-  id: string;
-  title: string;
-  tasks: TaskType[];
-}
+import Task from "./Task";
+import { ColumnsContext } from "../context/ColumnContext";
+import { ColumnType, TaskType } from "../types";
 
 const Column: React.FC<{
   column: ColumnType;
-  updateColumn: (columnId: string, updatedColumn: ColumnType) => void;
-  removeColumn: (columnId: string) => void;
   titleRef?: React.RefObject<HTMLDivElement>;
-}> = ({ column, updateColumn, removeColumn, titleRef }) => {
+}> = ({ column, titleRef }) => {
+  const { updateColumn, removeColumn } = useContext(ColumnsContext);
   const [title, setTitle] = useState(column.title);
   const newTaskTitleRef = useRef<HTMLDivElement | null>(null);
   const [isNewTaskAdded, setIsNewTaskAdded] = useState(false);
@@ -141,4 +142,4 @@ const Column: React.FC<{
   );
 };
 
-export default Column;
+export default React.memo(Column);

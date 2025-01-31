@@ -2,18 +2,10 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-export interface TaskType {
-  id: string;
-  name: string;
-  description: string;
-}
+import { TaskType } from "../types";
 
 interface TaskProps {
-  task: {
-    id: string;
-    name: string;
-    description: string;
-  };
+  task: TaskType;
   updateTask: (taskId: string, updatedTask: TaskType) => void;
   removeTask: (taskId: string) => void;
   index: number;
@@ -74,4 +66,4 @@ const Task: React.FC<TaskProps> = ({
   );
 };
 
-export default Task;
+export default React.memo(Task);

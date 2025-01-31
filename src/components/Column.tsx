@@ -63,12 +63,12 @@ const Column: React.FC<{
 
   return (
     <div
-      className="bg-gray-800  rounded-lg shadow-lg"
+      className="bg-gray-800 rounded-lg shadow-lg"
       style={{ minWidth: "300px", maxWidth: "300px" }}
     >
-      <div className="bg-gray-700 p-3 flex flex-row justify-between items-center">
+      <div className="bg-gray-700 p-3 flex flex-row justify-between items-center min-w-0 overflow-hidden">
         <div
-          className="text-xl font-bold text-white focus:outline-none"
+          className="text-xl font-bold text-white focus:outline-none break-words flex-grow overflow-hidden"
           contentEditable
           onBlur={(e) => {
             updateColumn(column.id, {
@@ -81,7 +81,7 @@ const Column: React.FC<{
         >
           {title}
         </div>
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 flex-shrink-0">
           <button
             onClick={addTask}
             className="text-gray-400 p-1 rounded-full hover:text-green-500 transition duration-200"
@@ -96,13 +96,13 @@ const Column: React.FC<{
           </button>
         </div>
       </div>
-      <Droppable droppableId={column.id}>
+      <Droppable droppableId={column.id} direction="horizontal">
         {(provided) => (
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className="space-y-2 overflow-y-auto h-full p-4 custom-scrollbar"
-            style={{ maxHeight: "65vh" }}
+            className="space-y-2 overflow-x-auto overflow-y-auto h-full p-4 custom-scrollbar"
+            style={{ maxHeight: "65vh", whiteSpace: "nowrap" }}
           >
             {column.tasks.map((task, index) => (
               <Draggable key={task.id} draggableId={task.id} index={index}>

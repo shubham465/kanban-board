@@ -101,7 +101,7 @@ const Column: React.FC<{
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className="space-y-2 overflow-x-auto overflow-y-auto h-full p-4 custom-scrollbar"
+            className="space-y-2 overflow-x-hidden overflow-y-auto h-full p-4 custom-scrollbar"
             style={{ maxHeight: "65vh", whiteSpace: "nowrap" }}
           >
             {column.tasks.map((task, index) => (

@@ -32,7 +32,7 @@ const Task: React.FC<TaskProps> = ({
   return (
     <div className="bg-gray-700 p-4 rounded mb-4 shadow-md relative group transition duration-200 hover:border-2 hover:border-red-500">
       <div
-        className="text-xl font-bold text-white mb-2 bg-transparent focus:outline-none"
+        className="text-xl font-bold text-white mb-2 bg-transparent focus:outline-none break-words whitespace-normal"
         contentEditable
         onBlur={(e) => {
           updateTask(task.id, {
@@ -46,7 +46,7 @@ const Task: React.FC<TaskProps> = ({
         {name}
       </div>
       <div
-        className="bg-gray-600 p-2 rounded text-white focus:outline-none focus:border-blue-500"
+        className="bg-gray-600 p-2 rounded text-white focus:outline-none focus:border-blue-500 break-words whitespace-normal"
         contentEditable
         onFocus={(e) => {
           if (e.currentTarget.textContent === "Add description") {

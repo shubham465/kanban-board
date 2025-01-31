@@ -1,6 +1,6 @@
-// filepath: /E:/Projects/kanban-board/src/utils/localStorageHelpers.ts
+import { ColumnType } from "../components/Column";
 
-export const saveColumnsToLocalStorage = (columns: any) => {
+export const saveColumnsToLocalStorage = (columns: ColumnType[]) => {
   localStorage.setItem("columns", JSON.stringify(columns));
 };
 

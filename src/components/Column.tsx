@@ -96,7 +96,7 @@ const Column: React.FC<{
           </button>
         </div>
       </div>
-      <Droppable droppableId={column.id} direction="horizontal">
+      <Droppable droppableId={column.id}>
         {(provided) => (
           <div
             ref={provided.innerRef}

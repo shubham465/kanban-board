@@ -6,7 +6,7 @@ import {
   saveColumnsToLocalStorage,
   loadColumnsFromLocalStorage,
 } from "../utils/localStorageUtils";
-import "./Column.css"; // Import the CSS file for custom scrollbar styles
+import "./Column.css";
 import "./Board.css";
 
 const Board: React.FC = () => {

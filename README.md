@@ -14,6 +14,7 @@ https://kanban-board-2000.vercel.app
 - Add, update, and remove tasks within columns
 - Drag and drop tasks between columns
 - Persist data using local storage
+- Performance Optimization: Utilized React's memo & useCallback
 
 ## Technologies Used
 

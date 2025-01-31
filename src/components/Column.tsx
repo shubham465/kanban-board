@@ -1,15 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { Droppable, Draggable } from "@hello-pangea/dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
-import Task from "./Task";
-import "./Column.css"; // Import the CSS file for custom scrollbar styles
 
-export interface TaskType {
-  id: string;
-  name: string;
-  description: string;
-}
+import Task, { TaskType } from "./Task";
 
 export interface ColumnType {
   id: string;
@@ -19,11 +13,13 @@ export interface ColumnType {
 
 const Column: React.FC<{
   column: ColumnType;
-  updateColumn: any;
-  removeColumn: any;
+  updateColumn: (columnId: string, updatedColumn: ColumnType) => void;
+  removeColumn: (columnId: string) => void;
   titleRef?: React.RefObject<HTMLDivElement>;
 }> = ({ column, updateColumn, removeColumn, titleRef }) => {
   const [title] = useState(column.title);
+  const newTaskTitleRef = useRef<HTMLDivElement | null>(null);
+  const [isNewTaskAdded, setIsNewTaskAdded] = useState(false);
 
   const addTask = useCallback(() => {
     const newTask = {
@@ -32,29 +28,38 @@ const Column: React.FC<{
       description: "",
     };
     updateColumn(column.id, { ...column, tasks: [...column.tasks, newTask] });
+    setIsNewTaskAdded(true);
   }, [column, updateColumn]);
 
   const removeTask = useCallback(
     (taskId: string) => {
       updateColumn(column.id, {
         ...column,
-        tasks: column.tasks.filter((task: any) => task.id !== taskId),
+        tasks: column.tasks.filter((task: TaskType) => task.id !== taskId),
       });
     },
     [column, updateColumn]
   );
 
   const updateTask = useCallback(
-    (taskId: string, updatedTask: any) => {
+    (taskId: string, updatedTask: TaskType) => {
       updateColumn(column.id, {
         ...column,
-        tasks: column.tasks.map((task: any) =>
+        tasks: column.tasks.map((task: TaskType) =>
           task.id === taskId ? updatedTask : task
         ),
       });
     },
     [column, updateColumn]
   );
+
+  useEffect(() => {
+    if (isNewTaskAdded && newTaskTitleRef.current) {
+      newTaskTitleRef.current.focus();
+      newTaskTitleRef.current.scrollIntoView({ behavior: "smooth" });
+      setIsNewTaskAdded(false);
+    }
+  }, [isNewTaskAdded, column.tasks.length]);
 
   return (
     <div
@@ -68,7 +73,7 @@ const Column: React.FC<{
           onBlur={(e) => {
             updateColumn(column.id, {
               ...column,
-              title: e.currentTarget.textContent,
+              title: e.currentTarget.textContent ?? "",
             });
           }}
           suppressContentEditableWarning={true}
@@ -112,6 +117,11 @@ const Column: React.FC<{
                       updateTask={updateTask}
                       removeTask={removeTask}
                       index={index}
+                      titleRef={
+                        index === column.tasks.length - 1 && isNewTaskAdded
+                          ? newTaskTitleRef
+                          : undefined
+                      }
                     />
                   </div>
                 )}

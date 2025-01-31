@@ -3,11 +3,7 @@ import Board from "./components/Board";
 import "./styles/tailwind.css";
 
 const App: React.FC = () => {
-  return (
-    <div>
-      <Board />
-    </div>
-  );
+  return <Board />;
 };
 
 export default App;

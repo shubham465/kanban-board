@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
+export interface TaskType {
+  id: string;
+  name: string;
+  description: string;
+}
+
 interface TaskProps {
   task: {
     id: string;
     name: string;
     description: string;
   };
-  updateTask: (taskId: string, updatedTask: any) => void;
+  updateTask: (taskId: string, updatedTask: TaskType) => void;
   removeTask: (taskId: string) => void;
   index: number;
   titleRef?: React.RefObject<HTMLDivElement>;
@@ -29,7 +35,10 @@ const Task: React.FC<TaskProps> = ({
         className="text-xl font-bold text-white mb-2 bg-transparent focus:outline-none"
         contentEditable
         onBlur={(e) => {
-          updateTask(task.id, { ...task, name: e.currentTarget.textContent });
+          updateTask(task.id, {
+            ...task,
+            name: e.currentTarget.textContent ?? "",
+          });
         }}
         suppressContentEditableWarning={true}
         ref={titleRef}
@@ -49,7 +58,7 @@ const Task: React.FC<TaskProps> = ({
           if (newDescription === "") {
             e.currentTarget.textContent = "Add description";
           }
-          updateTask(task.id, { ...task, description: newDescription });
+          updateTask(task.id, { ...task, description: newDescription ?? "" });
         }}
         suppressContentEditableWarning={true}
       >

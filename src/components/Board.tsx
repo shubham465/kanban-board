@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
+
 import Column, { ColumnType } from "./Column";
 import {
   saveColumnsToLocalStorage,
@@ -101,19 +102,24 @@ const Board: React.FC = () => {
 
   return (
     <div className="bg-gray-900 min-h-screen p-4 relative">
-      <h1 className="title-text text-white mb-8 text-center">Kanban Board</h1>
-      <div className="flex items-center justify-center absolute top-12 right-12">
-        <div className="bg-gray-800 p-2 rounded-full shadow-lg">
-          <button
-            onClick={addColumn}
-            className=" text-white px-4 py-2 rounded-full flex items-center justify-center text-xl w-48 font-bold hover:bg-gray-700 transition duration-200"
-          >
-            + Add Column
-          </button>
+      <div className="flex justify-between items-center">
+        <h1 className="title-text text-white mb-8 text-center flex-grow">
+          Kanban Board
+        </h1>
+        <div className="flex items-center justify-end">
+          <div className="bg-gray-800 p-2 rounded-full shadow-lg">
+            <button
+              onClick={addColumn}
+              className="text-white px-4 py-2 rounded-full flex items-center justify-center text-xl w-12 md:w-48 font-bold hover:bg-gray-700 transition duration-200"
+            >
+              <span className="hidden md:block">+ Add Column</span>
+              <span className="block md:hidden">+</span>
+            </button>
+          </div>
         </div>
       </div>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="flex space-x-4 items-start custom-scrollbar overflow-x-auto">
+        <div className="flex space-x-4 items-start custom-scrollbar overflow-x-scroll">
           {columns.map((column) => (
             <Column
               key={column.id}

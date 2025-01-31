@@ -1,14 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const Task: React.FC<{
-  task: any;
-  updateTask: any;
-  removeTask: any;
+interface TaskProps {
+  task: {
+    id: string;
+    name: string;
+    description: string;
+  };
+  updateTask: (taskId: string, updatedTask: any) => void;
+  removeTask: (taskId: string) => void;
   index: number;
   titleRef?: React.RefObject<HTMLDivElement>;
-}> = ({ task, updateTask, removeTask, titleRef }) => {
+}
+
+const Task: React.FC<TaskProps> = ({
+  task,
+  updateTask,
+  removeTask,
+  titleRef,
+}) => {
   const [name] = useState(task.name);
   const [description] = useState(task.description);
 

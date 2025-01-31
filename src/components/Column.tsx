@@ -5,8 +5,20 @@ import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Task from "./Task";
 import "./Column.css"; // Import the CSS file for custom scrollbar styles
 
+export interface TaskType {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export interface ColumnType {
+  id: string;
+  title: string;
+  tasks: TaskType[];
+}
+
 const Column: React.FC<{
-  column: any;
+  column: ColumnType;
   updateColumn: any;
   removeColumn: any;
   titleRef?: React.RefObject<HTMLDivElement>;

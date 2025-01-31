@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
-import Column from "./Column";
+import Column, { ColumnType } from "./Column";
 import {
   saveColumnsToLocalStorage,
   loadColumnsFromLocalStorage,
@@ -8,8 +8,8 @@ import {
 import "./Column.css"; // Import the CSS file for custom scrollbar styles
 import "./Board.css";
 
-const Board = () => {
-  const [columns, setColumns] = useState([]);
+const Board: React.FC = () => {
+  const [columns, setColumns] = useState<ColumnType[]>([]);
   const newColumnTitleRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Board = () => {
     }
   }, []);
 
-  const updateColumn = (columnId, updatedColumn) => {
+  const updateColumn = (columnId: string, updatedColumn: ColumnType) => {
     setColumns((prevColumns) => {
       const updatedColumns = prevColumns.map((column) =>
         column.id === columnId ? updatedColumn : column
@@ -35,7 +35,7 @@ const Board = () => {
     });
   };
 
-  const removeColumn = (columnId) => {
+  const removeColumn = (columnId: string) => {
     const updatedColumns = columns.filter((column) => column.id !== columnId);
     setColumns(updatedColumns);
     saveColumnsToLocalStorage(updatedColumns);
@@ -123,7 +123,7 @@ const Board = () => {
               titleRef={
                 column.id === columns[columns.length - 1].id
                   ? newColumnTitleRef
-                  : null
+                  : undefined
               }
             />
           ))}

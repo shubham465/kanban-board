@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useCallback,
-  useRef,
-  useEffect,
-  useContext,
-} from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { Droppable, Draggable } from "@hello-pangea/dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +6,7 @@ import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Task from "./Task";
 import { ColumnsContext } from "../context/ColumnContext";
 import { ColumnType, TaskType } from "../types";
+import { useNewItem } from "../hooks/useNewItem";
 
 const Column: React.FC<{
   column: ColumnType;
@@ -19,8 +14,7 @@ const Column: React.FC<{
 }> = ({ column, titleRef }) => {
   const { updateColumn, removeColumn } = useContext(ColumnsContext);
   const [title, setTitle] = useState(column.title);
-  const newTaskTitleRef = useRef<HTMLDivElement | null>(null);
-  const [isNewTaskAdded, setIsNewTaskAdded] = useState(false);
+  const { isNewItemAdded, setIsNewItemAdded, newItemRef } = useNewItem();
 
   const addTask = useCallback(() => {
     const newTask = {
@@ -29,8 +23,8 @@ const Column: React.FC<{
       description: "",
     };
     updateColumn(column.id, { ...column, tasks: [...column.tasks, newTask] });
-    setIsNewTaskAdded(true);
-  }, [column, updateColumn]);
+    setIsNewItemAdded(true);
+  }, [column, updateColumn, setIsNewItemAdded]);
 
   const removeTask = useCallback(
     (taskId: string) => {
@@ -53,14 +47,6 @@ const Column: React.FC<{
     },
     [column, updateColumn]
   );
-
-  useEffect(() => {
-    if (isNewTaskAdded && newTaskTitleRef.current) {
-      newTaskTitleRef.current.focus();
-      newTaskTitleRef.current.scrollIntoView({ behavior: "smooth" });
-      setIsNewTaskAdded(false);
-    }
-  }, [isNewTaskAdded, column.tasks.length]);
 
   return (
     <div
@@ -125,8 +111,8 @@ const Column: React.FC<{
                       removeTask={removeTask}
                       index={index}
                       titleRef={
-                        index === column.tasks.length - 1 && isNewTaskAdded
-                          ? newTaskTitleRef
+                        index === column.tasks.length - 1 && isNewItemAdded
+                          ? newItemRef
                           : undefined
                       }
                     />

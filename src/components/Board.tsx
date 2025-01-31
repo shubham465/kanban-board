@@ -1,27 +1,26 @@
-import React, { useContext, useRef, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { DragDropContext } from "@hello-pangea/dnd";
 
 import Column from "./Column";
 import { ColumnsContext } from "../context/ColumnContext";
-import "./Column.css";
 import "./Board.css";
+import { useNewItem } from "../hooks/useNewItem";
 
 const Board: React.FC = () => {
   const { columns, addColumn, onDragEnd } = useContext(ColumnsContext);
-  const newColumnTitleRef = useRef<HTMLDivElement | null>(null);
-  const [isNewColumnAdded, setIsNewColumnAdded] = useState(false);
+  const { isNewItemAdded, setIsNewItemAdded, newItemRef } = useNewItem();
 
   useEffect(() => {
-    if (isNewColumnAdded && newColumnTitleRef.current) {
-      newColumnTitleRef.current.focus();
-      newColumnTitleRef.current.scrollIntoView({ behavior: "smooth" });
-      setIsNewColumnAdded(false);
+    if (isNewItemAdded && newItemRef.current) {
+      newItemRef.current.focus();
+      newItemRef.current.scrollIntoView({ behavior: "smooth" });
+      setIsNewItemAdded(false);
     }
-  }, [columns.length, isNewColumnAdded]);
+  }, [columns.length, isNewItemAdded, setIsNewItemAdded, newItemRef]);
 
   const handleAddColumn = () => {
     addColumn();
-    setIsNewColumnAdded(true);
+    setIsNewItemAdded(true);
   };
 
   return (
@@ -50,7 +49,7 @@ const Board: React.FC = () => {
               column={column}
               titleRef={
                 column.id === columns[columns.length - 1].id
-                  ? newColumnTitleRef
+                  ? newItemRef
                   : undefined
               }
             />

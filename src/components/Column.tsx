@@ -49,10 +49,7 @@ const Column: React.FC<{
   );
 
   return (
-    <div
-      className="bg-gray-800 rounded-lg shadow-lg"
-      style={{ minWidth: "300px", maxWidth: "300px" }}
-    >
+    <div className="bg-gray-800 rounded-lg shadow-lg min-w-[400px] max-w-[400px]">
       <div className="bg-gray-700 p-3 flex flex-row justify-between items-center min-w-0 overflow-hidden">
         <div
           className="text-xl font-bold text-white focus:outline-none truncate flex-grow overflow-hidden"
@@ -77,15 +74,21 @@ const Column: React.FC<{
         <div className="flex space-x-2 flex-shrink-0">
           <button
             onClick={addTask}
-            className="text-gray-400 p-1 rounded-full hover:text-green-500 transition duration-200"
+            className="text-gray-400 p-1 rounded-full hover:text-green-500 transition duration-200 cursor-pointer"
           >
-            <FontAwesomeIcon icon={faPlus} className="text-2xl" />
+            <FontAwesomeIcon
+              icon={faPlus}
+              className="text-2xl hover:animate-pulse"
+            />
           </button>
           <button
             onClick={() => removeColumn(column.id)}
-            className="text-gray-400 p-1 rounded-full hover:text-red-500 transition duration-200"
+            className="text-gray-400 p-1 rounded-full hover:text-red-500 transition duration-200 cursor-pointer"
           >
-            <FontAwesomeIcon icon={faTrash} className="text-lg" />
+            <FontAwesomeIcon
+              icon={faTrash}
+              className="text-lg hover:animate-bounce"
+            />
           </button>
         </div>
       </div>
@@ -94,8 +97,7 @@ const Column: React.FC<{
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className="space-y-2 overflow-x-hidden overflow-y-auto h-full p-4 custom-scrollbar"
-            style={{ maxHeight: "65vh", whiteSpace: "nowrap" }}
+            className="space-y-2 overflow-x-hidden overflow-y-auto h-full p-4 custom-scrollbar max-h-[65vh]"
           >
             {column.tasks.map((task, index) => (
               <Draggable key={task.id} draggableId={task.id} index={index}>

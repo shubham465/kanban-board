@@ -22,7 +22,7 @@ const Task: React.FC<TaskProps> = ({
   const [description] = useState(task.description);
 
   return (
-    <div className="bg-gray-700 p-4 rounded mb-4 shadow-md relative group transition duration-200 hover:border-2 hover:border-red-500">
+    <div className="bg-gray-700 p-4 rounded mb-4 shadow-md relative group transition cursor-grab hover:ring-2 hover:ring-inset hover:ring-rose-500">
       <div
         className="text-xl font-bold text-white mb-2 bg-transparent focus:outline-none break-words whitespace-normal"
         contentEditable
@@ -38,7 +38,7 @@ const Task: React.FC<TaskProps> = ({
         {name}
       </div>
       <div
-        className="bg-gray-600 p-2 rounded text-white focus:outline-none focus:border-blue-500 break-words whitespace-normal"
+        className="bg-gray-600 h-20 p-2 rounded text-white focus:outline-none focus:border-blue-500 break-words whitespace-normal"
         contentEditable
         onFocus={(e) => {
           if (e.currentTarget.textContent === "Add description") {
@@ -58,9 +58,12 @@ const Task: React.FC<TaskProps> = ({
       </div>
       <button
         onClick={() => removeTask(task.id)}
-        className="absolute top-2 right-2 text-gray-400 p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute top-2 right-2 text-gray-400 p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
       >
-        <FontAwesomeIcon icon={faTrash} className="text-sm" />
+        <FontAwesomeIcon
+          icon={faTrash}
+          className="text-sm hover:animate-bounce"
+        />
       </button>
     </div>
   );

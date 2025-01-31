@@ -33,7 +33,7 @@ const Board: React.FC = () => {
           <div className="bg-gray-800 p-2 rounded-full shadow-lg">
             <button
               onClick={handleAddColumn}
-              className="text-white px-4 py-2 rounded-full flex items-center justify-center text-xl w-12 md:w-48 font-bold hover:bg-gray-700 transition duration-200"
+              className="text-white px-4 py-2 rounded-full flex items-center justify-center text-xl w-12 md:w-48 font-bold hover:bg-gray-700 transition duration-200 cursor-pointer"
             >
               <span className="hidden md:block">+ Add Column</span>
               <span className="block md:hidden">+</span>

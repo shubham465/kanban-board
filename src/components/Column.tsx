@@ -68,9 +68,13 @@ const Column: React.FC<{
     >
       <div className="bg-gray-700 p-3 flex flex-row justify-between items-center min-w-0 overflow-hidden">
         <div
-          className="text-xl font-bold text-white focus:outline-none break-words flex-grow overflow-hidden"
+          className="text-xl font-bold text-white focus:outline-none truncate flex-grow overflow-hidden"
           contentEditable
+          onFocus={(e) => {
+            e.currentTarget.classList.remove("truncate");
+          }}
           onBlur={(e) => {
+            e.currentTarget.classList.add("truncate");
             updateColumn(column.id, {
               ...column,
               title: e.currentTarget.textContent ?? "",
@@ -78,6 +82,7 @@ const Column: React.FC<{
           }}
           suppressContentEditableWarning={true}
           ref={titleRef}
+          title={title} // Add title attribute for tooltip
         >
           {title}
         </div>
